@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.Scanner;
 
 public class Main {
@@ -68,6 +69,103 @@ public class Main {
         }
 
         //EJERCICIO 3: estudiantes
+        //COMENTAR EL CODIGO DE ARRIBA PARA NO INTERFERIR CONSOLA - JOPTIONPANE
+
+        //Pedimos el ingreso de la cantidad de estudiantes
+        String inputEstudiantes = JOptionPane.showInputDialog("Ingrese la cantidad de estudiantes del curso:");
+
+        // Convertir la entrada a un número entero
+        try {
+            int numeroEstudiantes = Integer.parseInt(inputEstudiantes);
+
+            //creamos el array
+            String[] arrayEstudiantes = new String[numeroEstudiantes];
+            for (int i= 0; i < numeroEstudiantes; i++)
+            {
+                arrayEstudiantes[i] = JOptionPane.showInputDialog("Ingrese el nombre del estudiante n°: " + (i+1));
+            }
+            //mostramos la lista de estudiantes
+            String lista = "Lista de estudiantes \n";
+            for (int i = 0; i < numeroEstudiantes; i++)
+            {
+                lista = lista + (i+1) + ": " + arrayEstudiantes[i] + "\n";
+            }
+            JOptionPane.showMessageDialog(null, lista);
+
+        } catch (NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un número entero válido.");
+        }
+
+        //EJERCICIO 5. Se propone resolver con "arrays paralelos", pero debería implementarse la clase Estudiante
+        //Pedimos el ingreso de la cantidad de estudiantes
+        String stringCamtEstudiantes = JOptionPane.showInputDialog("Ingrese la cantidad de estudiantes del curso:");
+
+        // Convertir la entrada a un número entero
+        try {
+            int numeroEstudiantes = Integer.parseInt(stringCamtEstudiantes);
+
+            //creamos los arrays paralelos
+            String[] arrayEstudiantes = new String[numeroEstudiantes];
+            int[] arrayNotas = new int[numeroEstudiantes];
+
+            for (int i= 0; i < numeroEstudiantes; i++)
+            {
+                arrayEstudiantes[i] = JOptionPane.showInputDialog("Ingrese el nombre del estudiante n°: " + (i+1));
+                String notaInput = JOptionPane.showInputDialog("Ingrese la nota de " + arrayEstudiantes[i] + ":");
+                try
+                {
+                    arrayNotas[i] = Integer.parseInt(notaInput);
+                }
+                catch (NumberFormatException e)
+                {
+                    JOptionPane.showMessageDialog(null, "Nota inválida, se asignará 0 por defecto.");
+                    arrayNotas[i] = 0;
+                }
+            }
+
+            // Encontramos la nota mínima y máxima
+            //asignamos por defecto nota min y max al index 0, mismo para nombre estudiante
+            int notaMin = arrayNotas[0];
+            int notaMax = arrayNotas[0];
+
+            String estudianteMin = arrayEstudiantes[0];
+            String estudianteMax = arrayEstudiantes[0];
+
+            //iteramos para comparar y reemplazar máximos y mínimos
+            for (int i = 1; i < numeroEstudiantes; i++)
+            {
+                if (arrayNotas[i] < notaMin)
+                {
+                    notaMin = arrayNotas[i];
+                    estudianteMin = arrayEstudiantes[i];
+                }
+                if (arrayNotas[i] > notaMax)
+                {
+                    notaMax = arrayNotas[i];
+                    estudianteMax = arrayEstudiantes[i];
+                }
+            }
+
+            //mostramos la lista de estudiantes
+            String lista = "Lista de estudiantes con notas\n";
+            for (int i = 0; i < numeroEstudiantes; i++)
+            {
+                lista = lista + (i + 1) + ": " + arrayEstudiantes[i] + " - Nota: " + arrayNotas[i] + "\n";
+            }
+            JOptionPane.showMessageDialog(null, lista);
+
+            // Mostramos el estudiante con la nota mínima y máxima
+            JOptionPane.showMessageDialog(null, "El estudiante con la nota mínima es: "
+                    + estudianteMin + " con una nota de " + notaMin);
+            JOptionPane.showMessageDialog(null, "El estudiante con la nota máxima es: "
+                    + estudianteMax + " con una nota de " + notaMax);
+
+        } catch (NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un número entero válido.");
+        }
+
 
     }
 }
